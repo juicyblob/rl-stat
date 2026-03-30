@@ -1,0 +1,48 @@
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('@/assets/fonts/JetBrainsMono.woff2') format('woff2');
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('@/assets/fonts/JetBrainsMono-Italic.woff2') format('woff2');
+  font-weight: 100 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sora';
+  src: url('@/assets/fonts/Sora.woff2') format('woff2');
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@import "tailwindcss";
+
+:root {
+    --color-light: #F7FBFE;
+    --color-blue: #5644D1;
+    --color-muted: #57597A;
+    --color-deep: #0D0E22;
+    --color-bg: #1B1C30;
+    --color-blocks: #2B2D4C;
+    --color-ghost: #404262;
+    --color-green: #44D16E;
+    --color-orange: #F97316;
+    --color-red: #F94316;
+    --font-sora: 'Sora', sans-serif;
+    --font-jetbrains: 'JetBrains Mono', monospace;
+}
+
+body {
+    font-family: var(--font-sora);
+    line-height: 1.5;
+    color: var(--color-light);
+    background: linear-gradient(116.82deg, #22233B 0%, #4F5074 100%);
+    user-select: none;
+}
