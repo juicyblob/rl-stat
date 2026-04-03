@@ -5,8 +5,21 @@ export const router = createRouter({
     routes: [
         {
             path: '/',
-            name: 'overview',
-            component: () => import('@/pages/OverviewPage.vue')
+            name: 'main',
+            component: () => import('@/views/MainView.vue'),
+            redirect: '/overview',
+            children: [
+                {
+                    path: 'overview',
+                    name: 'overview',
+                    component: () => import('@/components/overview/Overview.vue')
+                },
+                // {
+                //     path: 'games',
+                //     name: 'game-list',
+                //     component: () => import('@/components/test.vue')
+                // },
+            ]
         }
     ]
 });
