@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import NavIcon from '../icons/NavIcon.vue';
+import NavIcon from '@/assets/icons/NavIcon.vue';
 
 
 const navLinks = [

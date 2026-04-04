@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import Logo from '@/components/icons/Logo.vue';
-import NavIcon from '@/components/icons/NavIcon.vue';
+import Header from '@/components/header/Header.vue';
+import Logo from '@/assets/icons/Logo.vue';
+import NavIcon from '@/assets/icons/NavIcon.vue';
 import Navigation from '@/components/sidebar/Navigation.vue';
 import UserData from '@/components/sidebar/UserData.vue';
 import { useUserStore } from '@/stores/user.store';
@@ -16,7 +17,7 @@ onMounted( async () => {
 </script>
 
 <template>
-    <aside class="w-75 bg-(--color-deep) pt-11 px-8 pb-29">
+    <aside class="w-75 bg-(--color-deep) pt-11 px-8 pb-29 shrink-0">
        <div class="flex flex-col h-full">
             <a href="/" class="no-underline text-(--color-light) text-2xl font-bold flex items-center gap-3">
                 <Logo />
@@ -34,8 +35,10 @@ onMounted( async () => {
             </button>
        </div>
     </aside>
-    <main class="p-11.5">
-        <header>header</header>
+    <main class="p-11.5 w-full">
+        <header>
+            <Header :xp="userStore.user.xp" :rank="userStore.user.current_rank" />
+        </header>
         <RouterView />
     </main>
 </template>
