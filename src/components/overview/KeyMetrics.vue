@@ -65,7 +65,7 @@ import { computed } from 'vue';
             :key="stat.id" 
             class="relative bg-(--color-blocks) p-5 rounded-[11px] flex flex-col gap-3 basis-50.75 shrink-0 grow"
         >
-            <span class="text-xl/normal text-(--color-muted)">{{ stat.title }}</span>
+            <span class="text-xl/[1.2] text-(--color-muted)">{{ stat.title }}</span>
             <span class="font-(family-name:--font-jetbrains) text-5xl/[1] font-bold">{{ stat.count }}</span>
         
             <div class="absolute top-8 right-5 flex flex-col gap-1.25">
