@@ -6,11 +6,12 @@ import Navigation from '@/components/sidebar/Navigation.vue';
 import UserData from '@/components/sidebar/UserData.vue';
 import { useUserStore } from '@/stores/user.store';
 import { onMounted } from 'vue';
+import { DEV_USER_ID } from '@/constants';
 
 const userStore = useUserStore();
 
 onMounted( async () => {
-    await userStore.fetchUser(1);
+    await userStore.fetchUser(DEV_USER_ID);
 });
 
 
@@ -36,7 +37,7 @@ onMounted( async () => {
        </div>
     </aside>
     <main class="p-11.5 w-full">
-        <header>
+        <header class="mb-10">
             <Header :xp="userStore.user.xp" :rank="userStore.user.current_rank" />
         </header>
         <RouterView />

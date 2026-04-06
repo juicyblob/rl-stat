@@ -12,3 +12,5 @@ export const DEFAULT_USER = {
     current_rank: 'bronze 1',
     highest_rank: 'bronze 1',
 };
+
+export const DEV_USER_ID = 1;
