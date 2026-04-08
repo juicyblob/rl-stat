@@ -3,6 +3,7 @@ import { useStatsStore } from '@/stores/stats.store';
 import KeyMetrics from './KeyMetrics.vue';
 import { onMounted } from 'vue';
 import { DEV_USER_ID } from '@/constants';
+import WinRate from './WinRate.vue';
 
 const statsStore = useStatsStore();
 
@@ -21,5 +22,9 @@ onMounted(() => {
             :saves="statsStore.stats?.saves ?? 0"
             :assists="statsStore.stats?.assists ?? 0" 
         "/>
+    </div>
+
+    <div class="flex h-77.5 mt-5">
+        <WinRate :win_rate="parseInt(statsStore.stats?.win_rate ?? '60')" />
     </div>
 </template>
