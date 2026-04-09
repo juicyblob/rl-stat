@@ -69,6 +69,8 @@ body {
   @apply w-9.5 h-9.5 bg-(--color-blocks) rounded-sm cursor-pointer flex items-center justify-center transition duration-300 ease-out hover:bg-(--color-ghost);
  }
 
-.apexcharts-canvas {
-  pointer-events: none;
- }
+.apexcharts-canvas,
+.apexcharts-svg {
+  outline: none !important;
+  border: none !important;
+}

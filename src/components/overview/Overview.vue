@@ -4,6 +4,7 @@ import KeyMetrics from './KeyMetrics.vue';
 import { onMounted } from 'vue';
 import { DEV_USER_ID } from '@/constants';
 import WinRate from './WinRate.vue';
+import GoalsDymanics from './GoalsDymanics.vue';
 
 const statsStore = useStatsStore();
 
@@ -24,7 +25,8 @@ onMounted(() => {
         "/>
     </div>
 
-    <div class="flex h-77.5 mt-5">
-        <WinRate :win_rate="parseInt(statsStore.stats?.win_rate ?? '60')" />
+    <div class="flex h-77.5 mt-5 gap-5">
+        <WinRate :win_rate="parseInt(statsStore.stats?.win_rate ?? '60')" class="w-77.5" />
+        <GoalsDymanics class="grow"/>
     </div>
 </template>
