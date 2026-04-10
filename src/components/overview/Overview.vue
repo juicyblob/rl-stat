@@ -5,6 +5,7 @@ import { onMounted } from 'vue';
 import { DEV_USER_ID } from '@/constants';
 import WinRate from './WinRate.vue';
 import GoalsDymanics from './GoalsDymanics.vue';
+import LastGames from './LastGames.vue';
 
 const statsStore = useStatsStore();
 
@@ -28,5 +29,9 @@ onMounted(() => {
     <div class="flex h-77.5 mt-5 gap-5">
         <WinRate :win_rate="parseInt(statsStore.stats?.win_rate ?? '60')" class="w-77.5" />
         <GoalsDymanics class="grow"/>
+    </div>
+
+    <div class="mt-5">
+        <LastGames />
     </div>
 </template>
