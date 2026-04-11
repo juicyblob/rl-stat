@@ -109,12 +109,17 @@ const chartOptions = {
     
 }
 
+const filterOptions = [
+    { value: 'weekly', label: 'Weekly' },
+    { value: 'monthly', label: 'Monthly'}
+];
+
 </script>
 
 <template>
     <Panel title="Goals Dynamics">
         <template #filters>
-            <FilterSelect />
+            <FilterSelect :options="filterOptions"/>
         </template>
         <apexchart height="100%" :options="chartOptions" :series="series"/>
     </Panel>

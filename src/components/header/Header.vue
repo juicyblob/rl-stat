@@ -20,7 +20,7 @@ const userData = computed(() => {
     <div class="flex justify-between">
         <div class="relative">
             <div class="bg-(--color-blocks) h-8 w-72.5 rounded-sm">
-                <div class="bg-(--color-blue) h-full rounded-sm w-[45%]" :style="{ width: userData.bar_percent}"></div>
+                <div class="bg-(--color-blue) h-full rounded-tl-sm rounded-bl-sm" :style="{ width: userData.bar_percent}"></div>
             </div>
             <div class="flex items-center gap-3 absolute top-1 left-3">
                 <img :src="userData.rank_image_url" width="24" height="24" alt="rank" loading="lazy">

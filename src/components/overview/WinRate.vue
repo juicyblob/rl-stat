@@ -9,6 +9,11 @@ const percent = computed(() => {
     return `${win_rate}%`;
 });
 
+const filterOptions = [
+    { value: 'all', label: 'All time' },
+    { value: 'month', label: 'Month'}
+];
+
 const series = ref([win_rate]);
 
 const chartOptions = ref({
@@ -71,7 +76,7 @@ const chartOptions = ref({
 <template>
     <Panel title="Win Rate">
         <template #filters>
-            <FilterSelect />
+            <FilterSelect :options="filterOptions"/>
         </template>
         <div class="flex flex-col items-end h-full pt-6.5">
             <div class="flex flex-col gap-2 w-18.5">
