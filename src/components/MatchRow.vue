@@ -37,7 +37,7 @@ function formatDate(inputDate: Date | string) {
 
 const matchData = computed(() => {
     return {
-        num: `#${num + 1}`,
+        num: `#${num}`,
         match_date: formatDate(date),
         score: `${score_for}:${score_against}`,
         resultBack: result == 'win' ? 'var(--color-blue)' : 'var(--color-red)'
@@ -49,7 +49,7 @@ const matchData = computed(() => {
 <template>
     <div class="match-row">
         <div class="flex items-center gap-15">
-            <span>{{ matchData.num }}</span>
+            <span class="w-8">{{ matchData.num }}</span>
             <span>{{ matchData.match_date }}</span>
             <span>{{ matchData.score }}</span>
             <div class="

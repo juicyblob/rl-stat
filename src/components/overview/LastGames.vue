@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import IconEdit from '@/assets/icons/IconEdit.vue';
 import Panel from '../Panel.vue';
-import IconTrash from '@/assets/icons/IconTrash.vue';
-import MatchesTable from './MatchesTable.vue';
+import MatchesTable from '../MatchesTable.vue';
 
 </script>
 

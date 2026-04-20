@@ -41,6 +41,11 @@
     --font-sora: 'Sora', sans-serif;
     --font-jetbrains: 'JetBrains Mono', monospace;
 }
+
+html {
+  scrollbar-gutter: stable;
+}
+
 body, html {
   min-height: 100vh;
 }
@@ -71,7 +76,7 @@ body {
  }
 
  .match-row {
-  @apply bg-(--color-row) py-2.5 px-4 rounded-sm font-(family-name:--font-jetbrains) text-sm/[1] font-medium flex items-center justify-between;
+  @apply bg-(--color-row) py-2.5 px-4 rounded-sm font-(family-name:--font-jetbrains) text-sm/[1] font-medium flex items-center justify-between transition duration-200 ease-out hover:bg-(--color-ghost);
  }
 
 .apexcharts-canvas,

@@ -27,7 +27,7 @@ const onChange = (event: Event) => {
             </option>
         </select>
 
-        <div class="absolute top-1/2 right-2.25 -translate-y-px">
+        <div class="absolute top-1/2 right-2.25 -translate-y-px pointer-events-none">
             <IconSelectArrow />
         </div>
     </div>

@@ -12,5 +12,6 @@ export interface Match {
 }
 
 export type MatchResponse = {
-    items: Match[];
+    items: Match[],
+    total_pages: number
 }

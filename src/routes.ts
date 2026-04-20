@@ -14,11 +14,11 @@ export const router = createRouter({
                     name: 'overview',
                     component: () => import('@/components/overview/Overview.vue')
                 },
-                // {
-                //     path: 'games',
-                //     name: 'game-list',
-                //     component: () => import('@/components/test.vue')
-                // },
+                {
+                    path: 'games',
+                    name: 'game-list',
+                    component: () => import('@/components/game-list/gameList.vue')
+                },
             ]
         }
     ]
