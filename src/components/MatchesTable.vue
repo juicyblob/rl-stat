@@ -6,6 +6,7 @@ import { DEV_USER_ID, type MatchesSort } from '@/constants';
 import type { Match } from '@/interfaces/match.interface';
 import IconPagArrow from '@/assets/icons/IconPagArrow.vue';
 import { storeToRefs } from 'pinia';
+import MatchRowSkeleton from './MatchRowSkeleton.vue';
 
 const { select, sort = 'date' } = defineProps<{ select: 'last' | 'list', sort?: MatchesSort | string }>();
 
@@ -14,14 +15,20 @@ const matches = ref<Match[]>([]);
 const { pages, currentPage } = storeToRefs(matchesStore);
 const per_page = 12;
 
+const isLoading = ref<boolean>(false);
+
 async function loadMatches() {
+   isLoading.value = true;
+
    if (select == 'last') {
         await matchesStore.fetchLastMatches(DEV_USER_ID);
         matches.value = matchesStore.lastMatches ?? []; 
     } else if (select == 'list') {
         await matchesStore.fetchMatchesList(DEV_USER_ID, currentPage.value, sort);
         matches.value = matchesStore.matchesList ?? [];
-    } 
+    }
+    
+    isLoading.value = false;
 }
 
 function goToPrevPage() {
@@ -56,7 +63,9 @@ watch([() => sort, currentPage], () => {
                 <span class="pl-22">Actions</span>
         </div>
 
-        <div class="flex flex-col gap-2">
+        <MatchRowSkeleton v-if="isLoading" :rows="12" />
+
+        <div class="flex flex-col gap-2" v-else>
             <MatchRow 
                 v-for="(match, index) in matches"
                 :key="match.id"

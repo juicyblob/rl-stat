@@ -17,7 +17,7 @@ export const router = createRouter({
                 {
                     path: 'games',
                     name: 'game-list',
-                    component: () => import('@/components/game-list/gameList.vue')
+                    component: () => import('@/components/game-list/GameList.vue')
                 },
             ]
         }
