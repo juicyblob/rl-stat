@@ -24,6 +24,6 @@ function updateSort(value: string) {
         <template #filters>
             <FilterSelect :options="filterOptions" @update-value="updateSort"/>
         </template>
-        <MatchesTable select="list" :sort="currentSort" />
+        <MatchesTable select="list" :sort="currentSort" :pagination="true" />
     </Panel>
 </template>

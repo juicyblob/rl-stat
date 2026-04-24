@@ -19,6 +19,11 @@ export const router = createRouter({
                     name: 'game-list',
                     component: () => import('@/components/game-list/GameList.vue')
                 },
+                {
+                    path: 'top5',
+                    name: 'top5',
+                    component: () => import('@/components/top/TopMatches.vue')
+                },
             ]
         }
     ]

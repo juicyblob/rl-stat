@@ -8,7 +8,7 @@ import IconPagArrow from '@/assets/icons/IconPagArrow.vue';
 import { storeToRefs } from 'pinia';
 import MatchRowSkeleton from './MatchRowSkeleton.vue';
 
-const { select, sort = 'date' } = defineProps<{ select: 'last' | 'list', sort?: MatchesSort | string }>();
+const { select, sort = 'date', pagination = false } = defineProps<{ select: 'last' | 'list', sort?: MatchesSort | string, pagination?: boolean }>();
 
 const matchesStore = useMatchesStore();
 const matches = ref<Match[]>([]);
@@ -80,7 +80,7 @@ watch([() => sort, currentPage], () => {
                 :mode="match.mode"
             />
         </div>
-        <div v-if="pages > 1" class="flex gap-4 mt-8 mb-3">
+        <div v-if="pagination && pages > 1" class="flex gap-4 mt-8 mb-3">
             <button class="
                 bg-(--color-row) 
                 rounded-sm 

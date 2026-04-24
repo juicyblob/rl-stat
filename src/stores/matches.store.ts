@@ -8,11 +8,12 @@ import { ref } from "vue";
 export const useMatchesStore = defineStore('matches', () => {
     const lastMatches = ref<Match[]>();
     const matchesList = ref<Match[]>();
+    const matchesTop = ref<Match[]>();
     const pages = ref<number>(0);
     const currentPage = ref<number>(1);
 
     async function fetchLastMatches(user_id: number) {
-        const { data } = await axios.get<MatchResponse>(`${API_ROUTES.matches(user_id)}/last`);
+        const { data } = await axios.get<MatchResponse>(API_ROUTES.matchesLast(user_id));
         lastMatches.value = data.items;
     }
 
@@ -27,5 +28,10 @@ export const useMatchesStore = defineStore('matches', () => {
         pages.value = data.total_pages;
     }
 
-    return { lastMatches, matchesList, pages, currentPage, fetchLastMatches, fetchMatchesList };
+    async function fetchMatchesTop(user_id: number) {
+        const { data } = await axios.get<MatchResponse>(API_ROUTES.matchesTop(user_id));
+        matchesTop.value = data.items;
+    }
+
+    return { lastMatches, matchesList, pages, currentPage, matchesTop, fetchLastMatches, fetchMatchesList, fetchMatchesTop };
 });
