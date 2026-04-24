@@ -4,14 +4,21 @@ import IconHands from '@/assets/icons/IconHands.vue';
 import IconShield from '@/assets/icons/IconShield.vue';
 import { DEV_USER_ID } from '@/constants';
 import { useMatchesStore } from '@/stores/matches.store';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
+import TopMatchesSkeleton from './TopMatchesSkeleton.vue';
 
 const matchesStore = useMatchesStore();
+const isLoading = ref<boolean>(false);
+
+async function loadMatches() {
+    await matchesStore.fetchMatchesTop(DEV_USER_ID);
+    isLoading.value = false;
+}    
 
 onMounted(() => {
     if (matchesStore.matchesTop === undefined) {
-        matchesStore.fetchMatchesTop(DEV_USER_ID);
-        console.log('данные загружены');
+        isLoading.value = true;
+        loadMatches();
     }
 });
 
@@ -37,26 +44,37 @@ const matchesTop = computed(() => {
 <template>
     <h3 class="text-base/normal font-semibold">Top 5 Matches</h3>
 
-    <div 
-    class="
-    flex 
-    flex-col 
-    gap-3 
-    mt-6" 
-    v-for="(match, index) in matchesTop"
-    :key="match.id"
-    >
-        <div class="relative flex gap-25 bg-(--color-blocks) h-23 items-center rounded-[11px] pl-8">
-            <div class="
-            absolute 
-            top-0 
-            left-0 
-            rounded-tl-[11px] 
-            rounded-bl-[11px] 
-            w-2.5 
-            h-full 
+    <div class="flex flex-col gap-3 mt-6">
+        <TopMatchesSkeleton 
+            v-if="isLoading"
+            v-for="i in 5" 
+        />
+        <div 
+            class="
+            relative 
+            flex 
+            gap-25 
+            bg-(--color-blocks) 
+            h-23 
+            items-center 
+            rounded-[11px] 
+            pl-8
             "
-            :class="index <= 2 ? 'bg-(--color-light) opacity-62' : 'bg-(--color-ghost)'"
+            v-else
+            :key="match.id"
+            v-for="(match, index) in matchesTop"
+        >
+            <div 
+                class="
+                    absolute 
+                    top-0 
+                    left-0 
+                    rounded-tl-[11px] 
+                    rounded-bl-[11px] 
+                    w-2.5 
+                    h-full 
+                    "
+                    :class="index <= 2 ? 'bg-(--color-light) opacity-62' : 'bg-(--color-ghost)'"
             >
             </div>
             <div class="flex gap-10">
