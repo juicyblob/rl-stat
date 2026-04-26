@@ -24,6 +24,11 @@ export const router = createRouter({
                     name: 'top5',
                     component: () => import('@/components/top/TopMatches.vue')
                 },
+                {
+                    path: 'rank-history',
+                    name: 'rank-history',
+                    component: () => import('@/components/rank-history/RankHistory.vue')
+                },
             ]
         }
     ]

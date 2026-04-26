@@ -16,3 +16,4 @@ export const DEFAULT_USER = {
 export const DEV_USER_ID = 1;
 
 export type MatchesSort = 'date' | 'result' | 'mode';
+export type RankStat = 'up' | 'down';
