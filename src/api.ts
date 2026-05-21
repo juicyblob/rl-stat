@@ -5,6 +5,6 @@ export const API_ROUTES = {
     stats: (id: number) => `${baseURL}/users/${id}/stats`,
     ranks: (id: number) => `${baseURL}/users/${id}/rank-history`,
     matches: (id: number) => `${baseURL}/users/${id}/matches`,
-    matchesLast: (id: number) => `${baseURL}/users/${id}/matches`,
+    matchesLast: (id: number) => `${baseURL}/users/${id}/matches/last`,
     matchesTop: (id: number) => `${baseURL}/users/${id}/matches/top`,
 }
