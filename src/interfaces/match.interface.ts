@@ -1,6 +1,6 @@
 export interface Match {
     id?: number;
-    user_id: number;
+    user_id?: number;
     created_at?: string;
     score_for: number;
     score_against: number;
@@ -9,6 +9,7 @@ export interface Match {
     assists: number;
     saves: number;
     mode: string;
+    match_comment?: string;
 }
 
 export type MatchResponse = {

@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import IconBell from '@/assets/icons/IconBell.vue';
 import IconMoon from '@/assets/icons/IconMoon.vue';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
+import MatchModal from '../modals/MatchModal.vue';
 
-const { xp, rank } = defineProps<{ xp: number, rank: string}>();
+const { xp, rank } = defineProps<{ xp: number, rank: string }>();
+const matchModalIsOpened = ref<boolean>(false);
 
 const userData = computed(() => {
     return {
@@ -13,6 +15,24 @@ const userData = computed(() => {
     }
 });
 
+function lockScroll() {
+    document.body.style.overflow = 'hidden';
+}
+
+function unlockScroll() {
+    document.body.style.overflow = '';
+}
+
+function matchModalOpen() {
+    lockScroll();
+    matchModalIsOpened.value = true;
+}
+
+function matchModalClose() {
+    unlockScroll();
+    matchModalIsOpened.value = false;
+}
+
 
 </script>
 
@@ -20,7 +40,7 @@ const userData = computed(() => {
     <div class="flex justify-between">
         <div class="relative">
             <div class="bg-(--color-blocks) h-8 w-72.5 rounded-sm">
-                <div class="bg-(--color-blue) h-full rounded-tl-sm rounded-bl-sm" :style="{ width: userData.bar_percent}"></div>
+                <div class="bg-(--color-blue) h-full rounded-tl-sm rounded-bl-sm" :style="{ width: userData.bar_percent }"></div>
             </div>
             <div class="flex items-center gap-3 absolute top-1 left-3">
                 <img :src="userData.rank_image_url" width="24" height="24" alt="rank" loading="lazy">
@@ -36,7 +56,23 @@ const userData = computed(() => {
                     <IconMoon />
                 </button>
             </div>
-            <button class="bg-linear-(--color-gradient) text-base/[1] px-6 py-2.5 rounded-sm cursor-pointer transition duration-300 ease-out hover:shadow-(--drop-shadow-btn)">Add Match</button>
+            <button
+                @click="matchModalOpen"
+                class="
+                    bg-linear-(--color-gradient) 
+                    text-base/[1] 
+                    px-6 
+                    py-2.5 
+                    rounded-sm 
+                    cursor-pointer 
+                    transition 
+                    duration-300 
+                    ease-out 
+                    hover:shadow-(--drop-shadow-btn)
+                    ">
+                Add Match
+            </button>
         </div>
     </div>
+    <MatchModal :open="matchModalIsOpened" @close="matchModalClose" />
 </template>

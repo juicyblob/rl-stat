@@ -1,5 +1,6 @@
 import { API_ROUTES } from "@/api";
 import type { MatchesSort } from "@/constants";
+import type { CreateMatch } from "@/interfaces/create.interface";
 import type { Match, MatchResponse } from "@/interfaces/match.interface";
 import axios from "axios";
 import { defineStore } from "pinia";
@@ -33,5 +34,9 @@ export const useMatchesStore = defineStore('matches', () => {
         matchesTop.value = data.items;
     }
 
-    return { lastMatches, matchesList, pages, currentPage, matchesTop, fetchLastMatches, fetchMatchesList, fetchMatchesTop };
+    async function addMatch(user_id: number, newMatch: CreateMatch) {
+        await axios.post(API_ROUTES.matches(user_id), newMatch);
+    }
+
+    return { lastMatches, matchesList, pages, currentPage, matchesTop, fetchLastMatches, fetchMatchesList, fetchMatchesTop, addMatch };
 });
