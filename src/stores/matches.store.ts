@@ -12,6 +12,7 @@ export const useMatchesStore = defineStore('matches', () => {
     const matchesTop = ref<Match[]>();
     const pages = ref<number>(0);
     const currentPage = ref<number>(1);
+    const refreshMatches = ref<number>(0);
 
     async function fetchLastMatches(user_id: number) {
         const { data } = await axios.get<MatchResponse>(API_ROUTES.matchesLast(user_id));
@@ -38,5 +39,5 @@ export const useMatchesStore = defineStore('matches', () => {
         await axios.post(API_ROUTES.matches(user_id), newMatch);
     }
 
-    return { lastMatches, matchesList, pages, currentPage, matchesTop, fetchLastMatches, fetchMatchesList, fetchMatchesTop, addMatch };
+    return { lastMatches, matchesList, pages, currentPage, matchesTop, refreshMatches, fetchLastMatches, fetchMatchesList, fetchMatchesTop, addMatch };
 });

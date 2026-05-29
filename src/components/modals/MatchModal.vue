@@ -23,6 +23,7 @@ const resultLabels = ['win', 'loss'];
 const matchResult = ref<string>('');
 const errorFields = ref<string[]>([]);
 const isAssists = ref<boolean>(true);
+const isDisabledSaveButton = ref<boolean>(false);
 
 function changeMatchMode() {
     if (stats.mode === '1x1') {
@@ -170,6 +171,7 @@ async function saveMatch() {
     if (!validateFields()) return;
 
     try {
+        isDisabledSaveButton.value = true;
         await matchesStore.addMatch(DEV_USER_ID, {
             score_for: Number(stats.scoreFor),
             score_against: Number(stats.scoreAgainst),
@@ -180,12 +182,15 @@ async function saveMatch() {
             match_comment: stats.comment.trim()
         });
 
+        matchesStore.refreshMatches++;
         closeModal();
-
         console.log('Матч успешно добавлен!');
 
-    } catch (err) {
-        console.log('Ошибка создания матча', err);
+    } catch (err: any) {
+        console.log(err.response?.data);
+        console.log('Ошибка создания матча');
+    } finally {
+        isDisabledSaveButton.value = false;
     }
 }
 
@@ -398,6 +403,7 @@ async function saveMatch() {
 
                         <button
                             @click="saveMatch"
+                            :disabled="isDisabledSaveButton"
                             class="
                                 mt-11.5
                                 bg-linear-(--color-gradient) 
@@ -409,7 +415,11 @@ async function saveMatch() {
                                 cursor-pointer 
                                 transition 
                                 duration-300 
-                                ease-out 
+                                ease-out
+                                disabled:bg-none
+                                disabled:bg-(--color-ghost)
+                                disabled:text-(--color-gray)
+                                disabled:hover:shadow-none 
                                 hover:shadow-(--drop-shadow-btn)
                             ">
                             Save match
