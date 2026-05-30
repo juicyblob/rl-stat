@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import ActionButton from './ActionButton.vue';
+import ActionButton from '../common/ActionButton.vue';
 import IconInfo from '@/assets/icons/IconInfo.vue';
 
 const {

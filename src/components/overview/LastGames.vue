@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Panel from '../Panel.vue';
-import MatchesTable from '../MatchesTable.vue';
+import Panel from '../common/Panel.vue';
+import MatchesTable from '../match/MatchesTable.vue';
 
 </script>
 

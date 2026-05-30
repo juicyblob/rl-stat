@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import ActionButton from '../ActionButton.vue';
+import ActionButton from '../common/ActionButton.vue';
 import SettingsGroup from './SettingsGroup.vue';
 import Switcher from './Switcher.vue';
 import { useUserStore } from '@/stores/user.store';

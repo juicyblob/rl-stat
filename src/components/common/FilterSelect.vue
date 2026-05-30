@@ -2,7 +2,7 @@
 import IconSelectArrow from '@/assets/icons/IconSelectArrow.vue';
 import type { Filter } from '@/interfaces/filter.interface';
 
-const { options = [ { value: 'date', label: 'Date' } ] } = defineProps<{ options: Filter[] }>();
+const { options = [{ value: 'date', label: 'Date' }] } = defineProps<{ options: Filter[] }>();
 
 const emit = defineEmits<{
     (e: 'updateValue', value: string): void
@@ -21,9 +21,8 @@ const onChange = (event: Event) => {
             <option
                 v-for="option in options"
                 :key="option.value"
-                :value="option.value"
-            >
-            {{ option.label }}
+                :value="option.value">
+                {{ option.label }}
             </option>
         </select>
 
@@ -31,5 +30,5 @@ const onChange = (event: Event) => {
             <IconSelectArrow />
         </div>
     </div>
-    
+
 </template>

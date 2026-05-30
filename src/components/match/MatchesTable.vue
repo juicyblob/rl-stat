@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useMatchesStore } from '@/stores/matches.store';
 import MatchRow from './MatchRow.vue';
-import { computed, onMounted, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { DEV_USER_ID, type MatchesSort } from '@/constants';
 import type { Match } from '@/interfaces/match.interface';
 import IconPagArrow from '@/assets/icons/IconPagArrow.vue';

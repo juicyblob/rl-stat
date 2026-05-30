@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import FilterSelect from '../FilterSelect.vue';
-import Panel from '../Panel.vue';
+import FilterSelect from '../common/FilterSelect.vue';
+import Panel from '../common/Panel.vue';
 
 const series = ref([
     {
@@ -24,14 +24,14 @@ const chartOptions = {
         },
         offsetX: -17,
         dropShadow: {
-        enabled: true,
-        enabledOnSeries: undefined,
-        top: 0,
-        left: 0,
-        blur: 7,
-        color: '#4ADE80',
-        opacity: 0.39
-    },
+            enabled: true,
+            enabledOnSeries: undefined,
+            top: 0,
+            left: 0,
+            blur: 7,
+            color: '#4ADE80',
+            opacity: 0.39
+        },
     },
 
     grid: {
@@ -106,12 +106,12 @@ const chartOptions = {
             },
         },
     },
-    
+
 }
 
 const filterOptions = [
     { value: 'weekly', label: 'Weekly' },
-    { value: 'monthly', label: 'Monthly'}
+    { value: 'monthly', label: 'Monthly' }
 ];
 
 </script>
@@ -119,8 +119,8 @@ const filterOptions = [
 <template>
     <Panel title="Goals Dynamics">
         <template #filters>
-            <FilterSelect :options="filterOptions"/>
+            <FilterSelect :options="filterOptions" />
         </template>
-        <apexchart height="100%" :options="chartOptions" :series="series"/>
+        <apexchart height="100%" :options="chartOptions" :series="series" />
     </Panel>
 </template>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import Panel from '../Panel.vue';
-import FilterSelect from '../FilterSelect.vue';
+import Panel from '../common/Panel.vue';
+import FilterSelect from '../common/FilterSelect.vue';
 
 const { win_rate = 68 } = defineProps<{ win_rate: number }>();
 
@@ -11,7 +11,7 @@ const percent = computed(() => {
 
 const filterOptions = [
     { value: 'all', label: 'All time' },
-    { value: 'month', label: 'Month'}
+    { value: 'month', label: 'Month' }
 ];
 
 const series = ref([win_rate]);
@@ -57,7 +57,7 @@ const chartOptions = ref({
             },
         }
     },
-    
+
     states: {
         hover: {
             filter: {
@@ -76,7 +76,7 @@ const chartOptions = ref({
 <template>
     <Panel title="Win Rate">
         <template #filters>
-            <FilterSelect :options="filterOptions"/>
+            <FilterSelect :options="filterOptions" />
         </template>
         <div class="flex flex-col items-end h-full pt-6.5">
             <div class="flex flex-col gap-2 w-18.5">
@@ -93,5 +93,5 @@ const chartOptions = ref({
         </div>
         <apexchart class="absolute -top-3.5 -left-10" tabindex="-1" type="radialBar" width="262" height="262" :options="chartOptions" :series="series"></apexchart>
     </Panel>
-    
+
 </template>

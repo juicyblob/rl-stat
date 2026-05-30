@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user.store';
-import Panel from '../Panel.vue';
+import Panel from '../common/Panel.vue';
 import RankDate from './RankDate.vue';
 import { computed, onMounted, ref } from 'vue';
 import { DEV_USER_ID } from '@/constants';
-import NoData from '../NoData.vue';
+import NoData from '../common/NoData.vue';
 import RankDateSkeleton from './RankDateSkeleton.vue';
 
 const userStore = useUserStore();
@@ -37,8 +37,8 @@ function dateFormat(date: Date, type: 'short' | 'numeric' = 'short') {
     const day = date.getDate();
     const month = date.toLocaleString('en-US', { month: 'short' });
     const year = date.toLocaleString('en-US', { year: '2-digit' });
-    
-    return `${day} ${month}/${year}`; 
+
+    return `${day} ${month}/${year}`;
 }
 
 function capitalizeFirst(str: string) {
@@ -65,25 +65,14 @@ const lastUpdated = computed(() => {
 </script>
 
 <template>
-    <NoData v-if="noData"/>
+    <NoData v-if="noData" />
     <Panel v-else title="Rank History">
         <template #filters>
             <span class="text-xs/[1] text-(--color-light) opacity-68">Last updated {{ lastUpdated }}</span>
         </template>
         <div class="mt-5 flex flex-wrap gap-3.25 pb-37.5">
-            <RankDateSkeleton 
-                v-for="i in 16"
-                :key="i"
-                v-if="isLoading"
-            />
-            <RankDate 
-                v-for="rank in ranksData"
-                :key="rank.id"
-                :date="rank.dateString"
-                :rank-img="rank.rankImgUrl"
-                :status="rank.status"
-                v-else
-            />
+            <RankDateSkeleton v-for="i in 16" :key="i" v-if="isLoading" />
+            <RankDate v-for="rank in ranksData" :key="rank.id" :date="rank.dateString" :rank-img="rank.rankImgUrl" :status="rank.status" v-else />
         </div>
         <div class="border-t border-(--color-muted) pt-3 pb-13">
             <div class="text-xs/5 text-(--color-light) opacity-68 flex gap-10.5">
