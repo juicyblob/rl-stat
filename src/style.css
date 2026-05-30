@@ -38,6 +38,8 @@
   --color-orange: #F97316;
   --color-red: #F94316;
   --color-row: #313352;
+  --color-action: #4F5174;
+  --color-action-hover: #67698E;
   --color-gradient: 99.7deg, #5644D1 23.96%, #8C42CD 95.74%;
   --drop-shadow-btn: 0px 0px 16px rgba(86, 68, 209, 0.42);
   --font-sora: 'Sora', sans-serif;
@@ -79,7 +81,7 @@ body {
 }
 
 .match-row {
-  @apply bg-(--color-row) py-2.5 px-4 rounded-sm font-(family-name:--font-jetbrains) text-sm/[1] font-medium flex items-center justify-between transition duration-200 ease-out hover:bg-(--color-ghost);
+  @apply relative bg-(--color-row) py-2.5 px-4 rounded-sm font-(family-name:--font-jetbrains) text-sm/[1] font-medium flex items-center justify-between transition duration-200 ease-out hover:bg-(--color-ghost);
 }
 
 .apexcharts-canvas,

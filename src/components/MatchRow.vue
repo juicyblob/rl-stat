@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import IconEdit from '@/assets/icons/IconEdit.vue';
-import IconTrash from '@/assets/icons/IconTrash.vue';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
+import ActionButton from './ActionButton.vue';
+import IconInfo from '@/assets/icons/IconInfo.vue';
 
-const { 
+const {
     num = 0,
     date,
     score_for = 0,
@@ -13,8 +13,9 @@ const {
     assists = 0,
     saves = 0,
     mode = '3x3',
+    match_comment
 
-} = defineProps<{ 
+} = defineProps<{
     num: number,
     date: string,
     score_for: number,
@@ -24,7 +25,10 @@ const {
     assists: number,
     saves: number,
     mode: string,
+    match_comment: string,
 }>();
+
+const displayComment = ref<boolean>(false);
 
 function formatDate(inputDate: Date | string) {
     const date = new Date(inputDate);
@@ -44,6 +48,16 @@ const matchData = computed(() => {
     }
 });
 
+function showComment() {
+    if (match_comment) {
+        displayComment.value = true;
+    }
+}
+
+function hideComment() {
+    displayComment.value = false;
+}
+
 </script>
 
 <template>
@@ -62,8 +76,7 @@ const matchData = computed(() => {
                 text-center 
                 rounded-full
                 "
-                :style="{ backgroundColor: matchData.resultBack}"
-                >{{ result }}</div>
+                :style="{ backgroundColor: matchData.resultBack }">{{ result }}</div>
         </div>
 
         <div class="flex items-center gap-12.5">
@@ -74,13 +87,44 @@ const matchData = computed(() => {
 
         <span>{{ mode }}</span>
 
-        <div class="flex items-center gap-5 mr-1.5">
-            <button class="shrink-0 cursor-pointer">
-                <IconEdit />
-            </button>
-            <button class="shrink-0 cursor-pointer">
-                <IconTrash />
-            </button>
+        <div class="flex items-center gap-2">
+            <IconInfo
+                @mouseover="showComment"
+                @mouseout="hideComment"
+                class="
+                    mr-1.5
+                    opacity-36
+                    transition
+                    duration-200"
+                :class="match_comment ? 'hover:opacity-100' : ''" />
+            <ActionButton type="edit" />
+            <ActionButton type="remove" />
+        </div>
+
+        <div
+            v-if="match_comment"
+            class="
+                absolute
+                bottom-9.75
+                right-3
+                max-h-18.5
+                bg-(--color-deep)
+                shadow-[0_0_7px_0_rgba(86,68,209,0.25)]
+                rounded-[0.6875rem]
+                py-2.5
+                px-3
+                font-(family-name:--font-sora)
+                text-xs
+                font-normal 
+                max-w-78 
+                w-fit
+                h-fit
+                pointer-events-none
+                transition
+                duration-200
+            "
+            :class="displayComment ? 'opacity-100' : 'opacity-0'">
+            {{ match_comment }}
         </div>
     </div>
 </template>
