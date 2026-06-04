@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import IconBell from '@/assets/icons/IconBell.vue';
 import IconMoon from '@/assets/icons/IconMoon.vue';
-import { computed, ref } from 'vue';
-import MatchModal from '../modals/MatchModal.vue';
+import { computed } from 'vue';
+import { useMatchModalStore } from '@/stores/modal.store.ts';
 
 const { xp, rank } = defineProps<{ xp: number, rank: string }>();
-const matchModalIsOpened = ref<boolean>(false);
+const matchModalStore = useMatchModalStore();
 
 const userData = computed(() => {
     return {
@@ -15,22 +15,9 @@ const userData = computed(() => {
     }
 });
 
-function lockScroll() {
-    document.body.style.overflow = 'hidden';
-}
-
-function unlockScroll() {
-    document.body.style.overflow = '';
-}
 
 function matchModalOpen() {
-    lockScroll();
-    matchModalIsOpened.value = true;
-}
-
-function matchModalClose() {
-    unlockScroll();
-    matchModalIsOpened.value = false;
+    matchModalStore.open('add');
 }
 
 
@@ -74,5 +61,4 @@ function matchModalClose() {
             </button>
         </div>
     </div>
-    <MatchModal :open="matchModalIsOpened" @close="matchModalClose" />
 </template>

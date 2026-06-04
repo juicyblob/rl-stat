@@ -36,8 +36,25 @@ export const useMatchesStore = defineStore('matches', () => {
     }
 
     async function addMatch(user_id: number, newMatch: CreateMatch) {
-        await axios.post(API_ROUTES.matches(user_id), newMatch);
+        const { data} = await axios.post(API_ROUTES.matches(user_id), newMatch);
+        return data;
     }
 
-    return { lastMatches, matchesList, pages, currentPage, matchesTop, refreshMatches, fetchLastMatches, fetchMatchesList, fetchMatchesTop, addMatch };
+    async function updateMatch(match_id: number, payload: CreateMatch) {
+        const { data } = await axios.patch(API_ROUTES.match(match_id), payload);
+        return data;
+    }
+
+    return { 
+        lastMatches, 
+        matchesList, 
+        pages, currentPage, 
+        matchesTop, 
+        refreshMatches, 
+        fetchLastMatches, 
+        fetchMatchesList, 
+        fetchMatchesTop, 
+        addMatch, 
+        updateMatch 
+    };
 });

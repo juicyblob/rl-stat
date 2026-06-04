@@ -7,4 +7,5 @@ export const API_ROUTES = {
     matches: (id: number) => `${baseURL}/users/${id}/matches`,
     matchesLast: (id: number) => `${baseURL}/users/${id}/matches/last`,
     matchesTop: (id: number) => `${baseURL}/users/${id}/matches/top`,
+    match: (id: number) => `${baseURL}/matches/${id}`,
 }

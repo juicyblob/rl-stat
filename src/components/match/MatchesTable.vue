@@ -69,6 +69,7 @@ watch([() => sort, currentPage, refreshMatches], () => {
             <MatchRow
                 v-for="(match, index) in matches"
                 :key="match.id"
+                :match_id="match.id ?? 0"
                 :num="(currentPage - 1) * per_page + index + 1"
                 :date="match.created_at ?? '--/--/--'"
                 :score_for="match.score_for"

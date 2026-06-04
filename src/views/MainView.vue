@@ -7,8 +7,11 @@ import UserData from '@/components/sidebar/UserData.vue';
 import { useUserStore } from '@/stores/user.store';
 import { onMounted } from 'vue';
 import { DEV_USER_ID } from '@/constants';
+import { useMatchModalStore } from '@/stores/modal.store';
+import MatchModal from '@/components/modals/MatchModal.vue';
 
 const userStore = useUserStore();
+const matchModalStore = useMatchModalStore();
 
 onMounted(async () => {
     await userStore.fetchUser(DEV_USER_ID);
@@ -40,4 +43,5 @@ onMounted(async () => {
         </header>
         <RouterView />
     </main>
+    <MatchModal :open="matchModalStore.isOpen" :match-mode="matchModalStore.mode" :match="matchModalStore.selectedMatch" @close="matchModalStore.close" />
 </template>

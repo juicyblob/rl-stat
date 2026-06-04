@@ -1,15 +1,28 @@
 <script setup lang="ts">
 import IconModeSelectArrow from '@/assets/icons/IconModeSelectArrow.vue';
 import ButtonClose from './ButtonClose.vue';
-import { reactive, ref } from 'vue';
+import { computed, reactive, ref, watch } from 'vue';
 import { useMatchesStore } from '@/stores/matches.store.ts';
-import { DEV_USER_ID } from '@/constants.ts';
+import { DEV_USER_ID, type ModalMode } from '@/constants.ts';
+import type { Match } from '@/interfaces/match.interface.ts';
+import { useMatchModalStore } from '@/stores/modal.store.ts';
+import { storeToRefs } from 'pinia';
+import type { CreateMatch } from '@/interfaces/create.interface.ts';
+import { useStatsStore } from '@/stores/stats.store.ts';
 
-const { open = false } = defineProps<{ open: boolean }>();
+const { open = false, matchMode, match } = defineProps<{
+    open: boolean,
+    matchMode: ModalMode,
+    match: Partial<Match> | undefined
+}>();
 const emit = defineEmits<{
     (e: 'close'): void
 }>();
+
 const matchesStore = useMatchesStore();
+const statsStore = useStatsStore();
+const matchModalStore = useMatchModalStore();
+const { mode, selectedMatch } = storeToRefs(matchModalStore);
 
 type StatsKey = 'scoreFor' | 'scoreAgainst' | 'goals' | 'saves' | 'assists';
 
@@ -37,6 +50,7 @@ function changeMatchMode() {
 }
 
 const stats = reactive({
+    match_id: 0,
     scoreFor: '-',
     scoreAgainst: '-',
     goals: '-',
@@ -46,7 +60,23 @@ const stats = reactive({
     mode: matchModes[0]?.value
 });
 
+const modalData = computed(() => {
+    return {
+        title: matchMode === 'add' ? 'Add Match Result' : 'Edit Match Result',
+        subtitle: matchMode === 'add' ? 'Track your performance' : 'Modify your match stats',
+        buttonText: matchMode === 'add' ? 'Save match' : 'Save Changes'
+    }
+});
+
+watch(() => [mode.value, selectedMatch.value] as const, ([newMode, newMatch]) => {
+    if (newMode === 'edit' && newMatch) {
+        fillStats(newMatch);
+    }
+}
+);
+
 function statsReset() {
+    stats.match_id = 0;
     stats.scoreFor = '-';
     stats.scoreAgainst = '-';
     stats.goals = '-';
@@ -57,6 +87,30 @@ function statsReset() {
     matchResult.value = '';
     errorFields.value.length = 0;
     isAssists.value = true;
+}
+
+function fillStats(match: Partial<Match>) {
+    stats.match_id = match.id ?? 0;
+    stats.scoreFor = String(match.score_for);
+    stats.scoreAgainst = String(match.score_against);
+    stats.goals = String(match.goals);
+    stats.saves = String(match.saves);
+    stats.assists = String(match.assists);
+    stats.comment = match.match_comment ?? '';
+    stats.mode = match.mode;
+    matchResult.value = match.result ?? '';
+}
+
+function matchStatsPayload(): CreateMatch {
+    return {
+        score_for: Number(stats.scoreFor),
+        score_against: Number(stats.scoreAgainst),
+        goals: Number(stats.goals),
+        assists: Number(stats.assists),
+        saves: Number(stats.saves),
+        mode: stats.mode ?? '3x3',
+        match_comment: stats.comment.trim()
+    }
 }
 
 function validateFields(): boolean {
@@ -172,19 +226,20 @@ async function saveMatch() {
 
     try {
         isDisabledSaveButton.value = true;
-        await matchesStore.addMatch(DEV_USER_ID, {
-            score_for: Number(stats.scoreFor),
-            score_against: Number(stats.scoreAgainst),
-            goals: Number(stats.goals),
-            assists: Number(stats.assists),
-            saves: Number(stats.saves),
-            mode: stats.mode ?? '3x3',
-            match_comment: stats.comment.trim()
-        });
+        if (mode.value === 'add') {
+            await matchesStore.addMatch(DEV_USER_ID, matchStatsPayload());
+        } else if (mode.value === 'edit') {
+            await matchesStore.updateMatch(match?.id ?? 0, matchStatsPayload());
+        }
 
+        statsStore.fetchUserStats(DEV_USER_ID);
         matchesStore.refreshMatches++;
         closeModal();
-        console.log('Матч успешно добавлен!');
+
+        mode.value === 'add'
+            ? console.log('Матч успешно добавлен!')
+            : console.log('Изменения сохранены!')
+
 
     } catch (err: any) {
         console.log(err.response?.data);
@@ -222,8 +277,8 @@ async function saveMatch() {
                         w-164
                     ">
                     <div>
-                        <h3 class="text-2xl/[1] font-semibold mb-3">Add Match Result</h3>
-                        <p class="text-sm/[1.2] text-(--color-muted)">Track your performance</p>
+                        <h3 class="text-2xl/[1] font-semibold mb-3">{{ modalData.title }}</h3>
+                        <p class="text-sm/[1.2] text-(--color-muted)">{{ modalData.subtitle }}</p>
 
                         <div class="mt-8 flex justify-between">
                             <div class="flex flex-col gap-3 items-start">

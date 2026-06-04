@@ -2,8 +2,10 @@
 import { computed, ref } from 'vue';
 import ActionButton from '../common/ActionButton.vue';
 import IconInfo from '@/assets/icons/IconInfo.vue';
+import { useMatchModalStore } from '@/stores/modal.store.ts';
 
 const {
+    match_id,
     num = 0,
     date,
     score_for = 0,
@@ -16,6 +18,7 @@ const {
     match_comment
 
 } = defineProps<{
+    match_id: number,
     num: number,
     date: string,
     score_for: number,
@@ -29,6 +32,7 @@ const {
 }>();
 
 const displayComment = ref<boolean>(false);
+const matchModalStore = useMatchModalStore();
 
 function formatDate(inputDate: Date | string) {
     const date = new Date(inputDate);
@@ -56,6 +60,20 @@ function showComment() {
 
 function hideComment() {
     displayComment.value = false;
+}
+
+function matchModalOpen() {
+    matchModalStore.open('edit', {
+        id: match_id,
+        score_for: score_for,
+        score_against: score_against,
+        goals: goals,
+        saves: saves,
+        assists: assists,
+        match_comment: match_comment,
+        mode: mode,
+        result: result
+    });
 }
 
 </script>
@@ -97,7 +115,7 @@ function hideComment() {
                     transition
                     duration-200"
                 :class="match_comment ? 'hover:opacity-100' : ''" />
-            <ActionButton type="edit" />
+            <ActionButton type="edit" @click="matchModalOpen" />
             <ActionButton type="remove" />
         </div>
 
