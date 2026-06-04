@@ -2,7 +2,7 @@
 import IconBell from '@/assets/icons/IconBell.vue';
 import IconMoon from '@/assets/icons/IconMoon.vue';
 import { computed } from 'vue';
-import { useMatchModalStore } from '@/stores/modal.store.ts';
+import { useMatchModalStore } from '@/stores/matchModal.store';
 
 const { xp, rank } = defineProps<{ xp: number, rank: string }>();
 const matchModalStore = useMatchModalStore();

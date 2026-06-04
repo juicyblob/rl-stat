@@ -2,7 +2,8 @@
 import { computed, ref } from 'vue';
 import ActionButton from '../common/ActionButton.vue';
 import IconInfo from '@/assets/icons/IconInfo.vue';
-import { useMatchModalStore } from '@/stores/modal.store.ts';
+import { useMatchModalStore } from '@/stores/matchModal.store.ts';
+import { useConfirmModalStore } from '@/stores/confirmModal.store.ts';
 
 const {
     match_id,
@@ -33,6 +34,7 @@ const {
 
 const displayComment = ref<boolean>(false);
 const matchModalStore = useMatchModalStore();
+const confirmModalStore = useConfirmModalStore();
 
 function formatDate(inputDate: Date | string) {
     const date = new Date(inputDate);
@@ -76,6 +78,17 @@ function matchModalOpen() {
     });
 }
 
+function confirmModalOpen() {
+    confirmModalStore.open(
+        'Delete this match?',
+        'This will permanently delete this match. This action cannot be undone.',
+        [
+            { text: 'Cancel', bg: 'muted' },
+            { text: 'Delete', bg: 'red' }
+        ]
+    );
+}
+
 </script>
 
 <template>
@@ -116,7 +129,7 @@ function matchModalOpen() {
                     duration-200"
                 :class="match_comment ? 'hover:opacity-100' : ''" />
             <ActionButton type="edit" @click="matchModalOpen" />
-            <ActionButton type="remove" />
+            <ActionButton type="remove" @click="confirmModalOpen" />
         </div>
 
         <div

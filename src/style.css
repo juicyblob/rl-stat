@@ -27,7 +27,9 @@
 :root {
   --color-light: #F7FBFE;
   --color-blue: #5644D1;
+  --color-blue-hover: #4632D0;
   --color-muted: #57597A;
+  --color-muted-hover: #47496d;
   --color-deep: #0D0E22;
   --color-bg: #1B1C30;
   --color-blocks: #2B2D4C;
@@ -37,6 +39,7 @@
   --color-green: #44D16E;
   --color-orange: #F97316;
   --color-red: #F94316;
+  --color-red-hover: #ce2f08;
   --color-row: #313352;
   --color-action: #4F5174;
   --color-action-hover: #67698E;

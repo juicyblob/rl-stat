@@ -18,3 +18,17 @@ export const DEV_USER_ID = 1;
 export type MatchesSort = 'date' | 'result' | 'mode';
 export type RankStat = 'up' | 'down';
 export type ModalMode = 'add' | 'edit' | null;
+export type ButtonConfirmBackground = 'muted' | 'red' | 'blue';
+
+export const DEFAULT_CONFIRM: {
+    title: string,
+    text: string,
+    buttons: { text: string, bg: ButtonConfirmBackground }[]
+} = {
+    title: 'Confirm title',
+    text: 'Confirm default text',
+    buttons: [
+        { text: 'Cancel', bg: 'muted' },
+        { text: 'Ok', bg: 'red' }
+    ]
+}

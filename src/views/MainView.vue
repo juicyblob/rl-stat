@@ -7,11 +7,14 @@ import UserData from '@/components/sidebar/UserData.vue';
 import { useUserStore } from '@/stores/user.store';
 import { onMounted } from 'vue';
 import { DEV_USER_ID } from '@/constants';
-import { useMatchModalStore } from '@/stores/modal.store';
+import { useMatchModalStore } from '@/stores/matchModal.store';
 import MatchModal from '@/components/modals/MatchModal.vue';
+import ConfirmModal from '@/components/modals/ConfirmModal.vue';
+import { useConfirmModalStore } from '@/stores/confirmModal.store';
 
 const userStore = useUserStore();
 const matchModalStore = useMatchModalStore();
+const confirmModalStore = useConfirmModalStore();
 
 onMounted(async () => {
     await userStore.fetchUser(DEV_USER_ID);
@@ -44,4 +47,9 @@ onMounted(async () => {
         <RouterView />
     </main>
     <MatchModal :open="matchModalStore.isOpen" :match-mode="matchModalStore.mode" :match="matchModalStore.selectedMatch" @close="matchModalStore.close" />
+    <ConfirmModal
+        :open="confirmModalStore.isOpen"
+        :title="confirmModalStore.title"
+        :text="confirmModalStore.text"
+        :buttons="confirmModalStore.buttons" />
 </template>

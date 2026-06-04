@@ -1,11 +1,12 @@
 <script setup lang="ts">
+
 import IconModeSelectArrow from '@/assets/icons/IconModeSelectArrow.vue';
 import ButtonClose from './ButtonClose.vue';
 import { computed, reactive, ref, watch } from 'vue';
 import { useMatchesStore } from '@/stores/matches.store.ts';
 import { DEV_USER_ID, type ModalMode } from '@/constants.ts';
 import type { Match } from '@/interfaces/match.interface.ts';
-import { useMatchModalStore } from '@/stores/modal.store.ts';
+import { useMatchModalStore } from '@/stores/matchModal.store.ts';
 import { storeToRefs } from 'pinia';
 import type { CreateMatch } from '@/interfaces/create.interface.ts';
 import { useStatsStore } from '@/stores/stats.store.ts';
