@@ -8,18 +8,21 @@ export const useConfirmModalStore = defineStore('confirm', () => {
     const title = ref<string>(DEFAULT_CONFIRM.title);
     const text = ref<string>(DEFAULT_CONFIRM.text);
     const buttons = ref<{ text: string, bg: ButtonConfirmBackground }[]>(DEFAULT_CONFIRM.buttons);
+    const matchId = ref<number | undefined>(undefined);
 
-    function open(modalTitle: string, modalText: string, modalButtons: {text: string, bg: ButtonConfirmBackground}[]) {
+    function open(modalTitle: string, modalText: string, modalButtons: {text: string, bg: ButtonConfirmBackground}[], match_id?: number) {
         lockScroll();
         title.value = modalTitle;
         text.value = modalText;
         buttons.value = modalButtons;
         isOpen.value = true;
+        if (match_id) matchId.value = match_id;
     }
 
     function close() {
         unlockScroll();
         isOpen.value = false;
+        matchId.value = undefined;
         setTimeout(() => {
             title.value = DEFAULT_CONFIRM.title;
             text.value = DEFAULT_CONFIRM.text;
@@ -33,6 +36,7 @@ export const useConfirmModalStore = defineStore('confirm', () => {
         title,
         text,
         buttons,
+        matchId,
         open,
         close
     }

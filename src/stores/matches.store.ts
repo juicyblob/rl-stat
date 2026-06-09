@@ -45,6 +45,11 @@ export const useMatchesStore = defineStore('matches', () => {
         return data;
     }
 
+    async function removeMatch(match_id: number) {
+        const { data } = await axios.delete(API_ROUTES.match(match_id));
+        return data;
+    }
+
     return { 
         lastMatches, 
         matchesList, 
@@ -55,6 +60,7 @@ export const useMatchesStore = defineStore('matches', () => {
         fetchMatchesList, 
         fetchMatchesTop, 
         addMatch, 
-        updateMatch 
+        updateMatch,
+        removeMatch 
     };
 });

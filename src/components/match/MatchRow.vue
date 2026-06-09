@@ -85,7 +85,8 @@ function confirmModalOpen() {
         [
             { text: 'Cancel', bg: 'muted' },
             { text: 'Delete', bg: 'red' }
-        ]
+        ],
+        match_id
     );
 }
 
